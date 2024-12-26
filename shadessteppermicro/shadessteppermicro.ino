@@ -1,6 +1,6 @@
 
 
-#define WRTC
+//#define WRTC
 #include <Wire.h>
 #ifdef WRTC
 #include "RTClib.h"
@@ -109,6 +109,7 @@ void loop()
       FlashLed(1);
       break;
     case MODE_IDLE:
+      #ifdef WRTC
       if(m1000slc==0){
          DateTime now = rtc.now();
         byte hh = now.hour();
@@ -128,7 +129,8 @@ void loop()
           }
         };
         FlashLed(1);
-      }     
+      }
+      #endif     
       break;
     case MODE_JOG:
       doJogMode();
@@ -287,5 +289,3 @@ void xdoMoveUntilLimitFree() {
   stepper.setCurrentPosition(0);
   mode = MODE_IDLE;
 }
-
-
